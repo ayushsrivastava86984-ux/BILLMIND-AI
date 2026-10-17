@@ -13,6 +13,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script>
+      // Single-page application deep-link handler for GitHub Pages 404 redirects
+      (function() {
+        try {
+          var search = window.location.search;
+          if (search && search.indexOf('?p=/') !== -1) {
+            var params = new URLSearchParams(search);
+            var p = params.get('p');
+            var q = params.get('q');
+            if (p) {
+              var newUrl = window.location.pathname.replace(/\/$/, '') + p + (q ? '?' + q : '') + window.location.hash;
+              window.history.replaceState(null, null, newUrl);
+            }
+          }
+        } catch (e) {}
+      })();
+
+      // Fast theme initialization to avoid flash of unstyled theme
       (function() {
         try {
           var saved = localStorage.getItem('billmind_theme_mode');
@@ -37,6 +54,32 @@
   <body>
     <div id="root"></div>
     <script type="module" src="./src/main.tsx"></script>
+    <script>
+      // Emergency Diagnostic Fallback:
+      // If a browser is served raw uncompiled source without Vite (e.g. main.tsx 404),
+      // provide an immediate, clear actionable message instead of a white blank page.
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var root = document.getElementById('root');
+          if (root && root.children.length === 0) {
+            root.innerHTML = '<div style="min-height:100vh;background:#080D1A;color:#F8FAFC;font-family:Inter,system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;">' +
+              '<div style="max-width:540px;background:#0F172A;border:1px solid #1E293B;border-radius:24px;padding:36px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">' +
+                '<div style="width:64px;height:64px;border-radius:18px;background:rgba(163,230,53,0.15);border:1px solid rgba(163,230,53,0.3);color:#A3E635;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px;">⚡</div>' +
+                '<h1 style="font-size:22px;font-weight:700;margin:0 0 10px;color:#FFFFFF;">BillMind AI — Deployment Setup</h1>' +
+                '<p style="font-size:14px;color:#94A3B8;line-height:1.6;margin:0 0 24px;">Your repository is serving uncompiled files directly from the root branch. To activate your live website, GitHub Pages needs to deploy the compiled production build.</p>' +
+                '<div style="background:#020617;border:1px solid #1E293B;border-radius:16px;padding:18px;text-align:left;margin-bottom:24px;font-size:13px;line-height:1.7;color:#CBD5E1;">' +
+                  '<div style="font-weight:600;color:#A3E635;margin-bottom:6px;">How to enable in 30 seconds:</div>' +
+                  '1. Open your GitHub Repository <strong>Settings</strong>.<br>' +
+                  '2. In the left sidebar, click <strong>Pages</strong>.<br>' +
+                  '3. Under <strong>Build and deployment &rarr; Source</strong>, choose <strong>GitHub Actions</strong>.<br>' +
+                  '4. GitHub will automatically run the build and publish your site with zero manual steps!' +
+                '</div>' +
+                '<button onclick="window.location.reload()" style="background:#A3E635;color:#020617;font-weight:700;border:none;border-radius:12px;padding:12px 24px;font-size:14px;cursor:pointer;">Refresh Page</button>' +
+              '</div>' +
+            '</div>';
+          }
+        }, 3500);
+      });
+    </script>
   </body>
 </html>
-
