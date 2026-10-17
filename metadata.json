@@ -1,0 +1,6 @@
+{
+  "name": "BillMind AI",
+  "description": "AI-powered billing, invoice management, payment tracking and financial insights platform for Indian businesses and freelancers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

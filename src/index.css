@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #0B1120;
+    color: #F8FAFC;
+    overflow-x: hidden;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+}
+
+/* Base Dark Theme (Default) */
+:root, .dark, [data-theme="dark"] {
+  --color-slate-950: #080D1A;
+  --color-slate-900: #0F172A;
+  --color-slate-800: #1E293B;
+  --color-slate-700: #334155;
+  --color-slate-600: #475569;
+  --color-slate-500: #64748B;
+  --color-slate-400: #94A3B8;
+  --color-slate-300: #CBD5E1;
+  --color-slate-200: #E2E8F0;
+  --color-slate-100: #F8FAFC;
+  --color-white: #FFFFFF;
+}
+
+/* Light / White Theme */
+.light, [data-theme="light"] {
+  --color-slate-950: #F8FAFC;
+  --color-slate-900: #FFFFFF;
+  --color-slate-800: #E2E8F0;
+  --color-slate-700: #CBD5E1;
+  --color-slate-600: #64748B;
+  --color-slate-500: #94A3B8;
+  --color-slate-400: #475569;
+  --color-slate-300: #334155;
+  --color-slate-200: #1E293B;
+  --color-slate-100: #0F172A;
+  --color-white: #090D16;
+}
+
+body.light, [data-theme="light"] body {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+body.dark, [data-theme="dark"] body {
+  background-color: #0B1120 !important;
+  color: #F8FAFC !important;
+}
+
+/* Light mode specific refinements for crisp fintech contrast */
+.light .rounded-2xl.bg-slate-900,
+.light .rounded-3xl.bg-slate-900,
+.light .rounded-xl.bg-slate-900 {
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 1px 3px 0 rgba(15, 23, 42, 0.04) !important;
+  border-color: #E2E8F0 !important;
+}
+
+.light input,
+.light textarea,
+.light select {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: #CBD5E1 !important;
+}
+
+.light input:focus,
+.light textarea:focus,
+.light select:focus {
+  border-color: #84CC16 !important;
+  box-shadow: 0 0 0 2px rgba(132, 204, 22, 0.2) !important;
+}
+
+.light input::placeholder,
+.light textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+.light header {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  border-bottom-color: #E2E8F0 !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Lime Buttons in Light Mode: Must have dark readable text */
+.light button.bg-lime-400,
+.light .bg-lime-400,
+.light [class*="bg-lime-400"],
+.light button[class*="bg-lime-"] {
+  color: #080D1A !important;
+}
+
+.light button.bg-lime-400 *,
+.light .bg-lime-400 *,
+.light [class*="bg-lime-400"] * {
+  color: #080D1A !important;
+}
+
+/* Colored semantic action buttons retain bright white text in Light Mode */
+.light .bg-rose-500,
+.light .bg-rose-600,
+.light .bg-red-500,
+.light .bg-red-600,
+.light .bg-emerald-500,
+.light .bg-emerald-600,
+.light .bg-sky-500,
+.light .bg-sky-600,
+.light .bg-\[\#0070BA\] {
+  color: #FFFFFF !important;
+}
+
+.light .bg-rose-500 *,
+.light .bg-rose-600 *,
+.light .bg-red-500 *,
+.light .bg-red-600 *,
+.light .bg-emerald-500 *,
+.light .bg-emerald-600 *,
+.light .bg-sky-500 *,
+.light .bg-sky-600 *,
+.light .bg-\[\#0070BA\] * {
+  color: #FFFFFF !important;
+}
+
+/* Modal dark overlay in light mode maintains focus & depth */
+.light .fixed.inset-0.bg-slate-950\/80,
+.light .fixed.inset-0.bg-slate-950\/85 {
+  background-color: rgba(15, 23, 42, 0.6) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0B1120;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+.light ::-webkit-scrollbar-track {
+  background: #F8FAFC;
+}
+.light ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+}
+.light ::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Print Stylesheet for Invoices & Receipts */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .no-print,
+  nav,
+  aside,
+  header,
+  footer,
+  .print-hide {
+    display: none !important;
+  }
+
+  .print-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  .print-page {
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
