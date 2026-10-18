@@ -21,6 +21,7 @@ import {
   FileText,
   LayoutDashboard,
 } from 'lucide-react';
+import { Logo } from '../common/Logo';
 
 export const Navbar: React.FC = () => {
   const {
@@ -71,24 +72,7 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Platform Name */}
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => handleNav(user ? 'dashboard' : 'landing')}>
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-lime-500 to-emerald-400 p-0.5 flex items-center justify-center shadow-lg shadow-lime-500/10 shrink-0">
-              <div className="w-full h-full bg-[#080D1A] rounded-[10px] flex items-center justify-center">
-                <span className="font-extrabold text-lime-400 text-lg tracking-tight">₹B</span>
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center space-x-1.5">
-                <span className="font-bold text-lg text-white tracking-tight">BillMind</span>
-                <span className="text-xs font-semibold px-1.5 py-0.5 rounded bg-lime-400/15 text-lime-400 border border-lime-400/30">
-                  AI
-                </span>
-              </div>
-              <p className="text-[10px] text-slate-400 hidden sm:block tracking-wide">
-                Smart Indian Business Invoicing
-              </p>
-            </div>
-          </div>
+          <Logo size="md" />
 
           {/* Center Navigation Links (Visible on public landing or tablet) */}
           <nav className="hidden md:flex items-center space-x-1 text-xs font-medium">

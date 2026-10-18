@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
 import { AuthSidebar } from './AuthSidebar';
+import { Logo } from '../common/Logo';
 import { validatePasswordRules } from '../../utils/auth';
 import {
   Lock,
@@ -99,12 +100,7 @@ export const SignUpPage: React.FC = () => {
                 <span>Home</span>
               </button>
 
-              <div className="flex items-center space-x-1.5 lg:hidden">
-                <span className="font-extrabold text-sm text-white">BillMind</span>
-                <span className="text-[10px] px-1 py-0.5 rounded bg-lime-400/20 text-lime-400 font-bold">
-                  AI
-                </span>
-              </div>
+              <Logo size="sm" showSubtitle={false} className="lg:hidden" />
             </div>
 
             {/* Title */}

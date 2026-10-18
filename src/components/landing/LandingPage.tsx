@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { formatINR } from '../../utils/formatters';
+import { Logo } from '../common/Logo';
 import {
   Sparkles,
   ArrowRight,
@@ -541,12 +542,7 @@ export const LandingPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div className="space-y-3">
-              <div className="flex items-center space-x-2">
-                <span className="font-extrabold text-base text-white">BillMind AI</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-lime-400/20 text-lime-400 font-semibold">
-                  INR Edition
-                </span>
-              </div>
+              <Logo size="md" showSubtitle={false} />
               <p className="text-slate-400 leading-relaxed text-[11px]">
                 AI-powered billing, invoice management, payment tracking and financial insights for Indian businesses.
               </p>

@@ -76,7 +76,13 @@ export const ReceiptsView: React.FC = () => {
   };
 
   const handlePrintReceipt = () => {
-    window.print();
+    try {
+      window.focus();
+      window.print();
+    } catch (err) {
+      console.error('Failed to trigger native print dialog:', err);
+      window.print();
+    }
   };
 
   return (
@@ -150,15 +156,19 @@ export const ReceiptsView: React.FC = () => {
                 <span className="text-xs text-slate-400">Official Settlement Voucher</span>
                 <button
                   onClick={handlePrintReceipt}
-                  className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center space-x-1.5"
+                  className="px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center space-x-1.5 shadow-md shadow-blue-600/20 active:scale-95 transition"
+                  title="Print or Save Receipt Voucher to PDF"
                 >
                   <Printer className="w-3.5 h-3.5" />
-                  <span>Print / Save Receipt PDF</span>
+                  <span>Print Receipt</span>
                 </button>
               </div>
 
               {/* Printable Voucher Paper */}
-              <div className="print-container bg-white text-slate-900 rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-200">
+              <div
+                className="print-container invoice-paper bg-white text-slate-900 rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-200"
+                style={{ backgroundColor: '#ffffff', color: '#0f172a' }}
+              >
                 <div className="flex justify-between items-start pb-4 border-b border-slate-200">
                   <div>
                     <span className="font-extrabold text-xl text-slate-950">{businessProfile.name}</span>

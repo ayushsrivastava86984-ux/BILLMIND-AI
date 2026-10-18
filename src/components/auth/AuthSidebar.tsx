@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckCircle2, ShieldCheck, Sparkles, TrendingUp, IndianRupee } from 'lucide-react';
+import { Logo } from '../common/Logo';
 
 export const AuthSidebar: React.FC = () => {
   return (
@@ -9,21 +10,8 @@ export const AuthSidebar: React.FC = () => {
 
       {/* Top Brand */}
       <div>
-        <div className="flex items-center space-x-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-lime-500 to-emerald-400 p-0.5 flex items-center justify-center shadow-lg shadow-lime-500/10">
-            <div className="w-full h-full bg-[#080D1A] rounded-[10px] flex items-center justify-center">
-              <span className="font-extrabold text-lime-400 text-lg tracking-tight">₹B</span>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center space-x-1.5">
-              <span className="font-bold text-xl text-white tracking-tight">BillMind</span>
-              <span className="text-xs font-semibold px-1.5 py-0.5 rounded bg-lime-400/15 text-lime-400 border border-lime-400/30">
-                AI
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-400">Smart Indian Business Invoicing</p>
-          </div>
+        <div className="mb-8">
+          <Logo size="lg" />
         </div>
 
         <h2 className="text-2xl font-extrabold text-white tracking-tight leading-snug">

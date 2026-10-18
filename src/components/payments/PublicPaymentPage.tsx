@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { formatINR, formatDateIndian, amountInWordsINR } from '../../utils/formatters';
+import { Logo } from '../common/Logo';
 import {
   CreditCard,
   QrCode,
@@ -72,22 +73,20 @@ export const PublicPaymentPage: React.FC = () => {
   };
 
   const handleDownloadInvoice = () => {
-    window.print();
+    try {
+      window.focus();
+      window.print();
+    } catch (err) {
+      console.error('Failed to trigger native print dialog:', err);
+      window.print();
+    }
   };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 py-10 px-4 sm:px-6 lg:px-8">
       {/* Top Brand Banner */}
       <div className="max-w-3xl mx-auto flex items-center justify-between pb-6 mb-6 border-b border-slate-800 text-xs no-print">
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 rounded-lg bg-lime-400/20 text-lime-400 flex items-center justify-center font-bold text-sm">
-            ₹
-          </div>
-          <div>
-            <span className="font-bold text-sm text-white">BillMind AI</span>
-            <span className="text-[10px] text-slate-400 block">Secure Customer Payment Gateway</span>
-          </div>
-        </div>
+        <Logo size="sm" showSubtitle={false} />
 
         <div className="flex items-center space-x-2">
           <button

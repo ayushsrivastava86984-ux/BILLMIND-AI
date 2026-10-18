@@ -37,7 +37,11 @@
   --color-slate-300: #334155;
   --color-slate-200: #1E293B;
   --color-slate-100: #0F172A;
-  --color-white: #090D16;
+  --color-white: #FFFFFF;
+}
+
+.light .text-white {
+  color: #0F172A;
 }
 
 body.light, [data-theme="light"] body {
@@ -79,9 +83,31 @@ body.dark, [data-theme="dark"] body {
 }
 
 .light header {
-  background-color: rgba(255, 255, 255, 0.94) !important;
+  background-color: rgba(255, 255, 255, 0.96) !important;
   border-bottom-color: #E2E8F0 !important;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04) !important;
+}
+
+.light aside {
+  background-color: #FFFFFF !important;
+  border-right-color: #E2E8F0 !important;
+}
+
+.light .bg-slate-900 {
+  background-color: #FFFFFF !important;
+}
+
+.light .bg-slate-950 {
+  background-color: #F8FAFC !important;
+}
+
+.light .border-slate-800,
+.light .border-slate-900 {
+  border-color: #E2E8F0 !important;
+}
+
+.light .text-slate-400 {
+  color: #64748B !important;
 }
 
 /* Lime Buttons in Light Mode: Must have dark readable text */
@@ -156,31 +182,189 @@ body.dark, [data-theme="dark"] body {
   background: #94A3B8;
 }
 
-/* Print Stylesheet for Invoices & Receipts */
+/* ============================================================
+   INVOICE & RECEIPT DOCUMENT ISOLATION (IMMUNE TO THEME INVERSION)
+   The invoice sheet is always a pristine physical document:
+   White background (#ffffff) + Dark readable typography (#0f172a)
+   ============================================================ */
+.print-container,
+.invoice-paper {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* Force dark contrast for all text inside invoice */
+.print-container .text-slate-950,
+.invoice-paper .text-slate-950 {
+  color: #020617 !important;
+}
+
+.print-container .text-slate-900,
+.invoice-paper .text-slate-900 {
+  color: #0f172a !important;
+}
+
+.print-container .text-slate-800,
+.invoice-paper .text-slate-800 {
+  color: #1e293b !important;
+}
+
+.print-container .text-slate-700,
+.invoice-paper .text-slate-700 {
+  color: #334155 !important;
+}
+
+.print-container .text-slate-600,
+.invoice-paper .text-slate-600 {
+  color: #475569 !important;
+}
+
+.print-container .text-slate-500,
+.invoice-paper .text-slate-500 {
+  color: #64748b !important;
+}
+
+.print-container .text-slate-400,
+.invoice-paper .text-slate-400 {
+  color: #64748b !important;
+}
+
+/* Surface backgrounds inside invoice */
+.print-container .bg-white,
+.invoice-paper .bg-white {
+  background-color: #ffffff !important;
+}
+
+.print-container .bg-slate-50,
+.invoice-paper .bg-slate-50 {
+  background-color: #f8fafc !important;
+}
+
+.print-container .bg-slate-100,
+.invoice-paper .bg-slate-100 {
+  background-color: #f1f5f9 !important;
+}
+
+/* Borders inside invoice */
+.print-container .border-slate-200,
+.invoice-paper .border-slate-200 {
+  border-color: #e2e8f0 !important;
+}
+
+.print-container .border-slate-300,
+.invoice-paper .border-slate-300 {
+  border-color: #cbd5e1 !important;
+}
+
+.print-container .border-slate-900,
+.invoice-paper .border-slate-900 {
+  border-color: #0f172a !important;
+}
+
+/* Badges inside invoice */
+.print-container .bg-emerald-100,
+.invoice-paper .bg-emerald-100 {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+.print-container .bg-rose-100,
+.invoice-paper .bg-rose-100 {
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+}
+
+.print-container .bg-amber-100,
+.invoice-paper .bg-amber-100 {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+}
+
+/* ============================================================
+   PRINT STYLESHEET FOR A4 INVOICES & RECEIPTS
+   ============================================================ */
+@page {
+  size: A4 portrait;
+  margin: 10mm 12mm 12mm 12mm;
+}
+
 @media print {
-  body {
+  /* Reset browser viewport and backgrounds to pure white */
+  html, body {
     background-color: #ffffff !important;
+    background: #ffffff !important;
     color: #000000 !important;
+    overflow: visible !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    height: auto !important;
+    min-height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
   }
 
+  /* Force print color fidelity */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide everything not part of the printable document */
   .no-print,
   nav,
   aside,
   header,
   footer,
-  .print-hide {
+  .print-hide,
+  button,
+  [role="dialog"] {
     display: none !important;
   }
 
-  .print-container {
+  /* Reset layout wrappers so they don't clip or add dark backgrounds */
+  #root,
+  .min-h-screen,
+  main,
+  [data-theme] {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: auto !important;
+    height: auto !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: block !important;
+  }
+
+  .print-container,
+  .invoice-paper {
     width: 100% !important;
     max-width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
     box-shadow: none !important;
     border: none !important;
+    background-color: #ffffff !important;
     background: #ffffff !important;
-    color: #0f172a !important;
+    color: #000000 !important;
+    page-break-inside: auto;
+  }
+
+  .print-container table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  .print-container tr {
+    page-break-inside: avoid !important;
+  }
+
+  .print-container thead {
+    display: table-header-group !important;
   }
 
   .print-page {

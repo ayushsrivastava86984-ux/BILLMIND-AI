@@ -17,6 +17,7 @@ import {
   Filter,
   ArrowUpDown,
   Sparkles,
+  Printer,
 } from 'lucide-react';
 
 export const InvoiceList: React.FC = () => {
@@ -262,9 +263,25 @@ export const InvoiceList: React.FC = () => {
                           setCurrentView('view-invoice');
                         }}
                         className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition"
-                        title="View / Print Invoice"
+                        title="View Invoice Preview"
                       >
                         <Eye className="w-3.5 h-3.5" />
+                      </button>
+
+                      {/* Direct Print */}
+                      <button
+                        onClick={() => {
+                          setSelectedInvoiceId(inv.id);
+                          setCurrentView('view-invoice');
+                          setTimeout(() => {
+                            window.focus();
+                            window.print();
+                          }, 150);
+                        }}
+                        className="p-1.5 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 transition"
+                        title="Print Invoice directly"
+                      >
+                        <Printer className="w-3.5 h-3.5" />
                       </button>
 
                       {/* Edit */}

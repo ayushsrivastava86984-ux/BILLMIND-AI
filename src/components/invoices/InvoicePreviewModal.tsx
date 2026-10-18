@@ -13,6 +13,7 @@ import {
   Building,
   ShieldCheck,
 } from 'lucide-react';
+import { Logo } from '../common/Logo';
 
 export const InvoicePreviewModal: React.FC = () => {
   const {
@@ -46,7 +47,13 @@ export const InvoicePreviewModal: React.FC = () => {
   }
 
   const handlePrint = () => {
-    window.print();
+    try {
+      window.focus();
+      window.print();
+    } catch (err) {
+      console.error('Failed to trigger native print dialog:', err);
+      window.print();
+    }
   };
 
   const handleCopyLink = () => {
@@ -73,7 +80,7 @@ export const InvoicePreviewModal: React.FC = () => {
               setSelectedInvoiceId(invoice.id);
               setCurrentView('edit-invoice');
             }}
-            className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 text-xs font-medium flex items-center space-x-1"
+            className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 text-xs font-medium flex items-center space-x-1 transition"
           >
             <Edit2 className="w-3.5 h-3.5" />
             <span>Edit</span>
@@ -81,7 +88,7 @@ export const InvoicePreviewModal: React.FC = () => {
 
           <button
             onClick={handleCopyLink}
-            className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-sky-300 text-xs font-medium flex items-center space-x-1"
+            className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-sky-300 text-xs font-medium flex items-center space-x-1 transition"
           >
             <Share2 className="w-3.5 h-3.5" />
             <span>Copy Payment Link</span>
@@ -89,10 +96,11 @@ export const InvoicePreviewModal: React.FC = () => {
 
           <button
             onClick={handlePrint}
-            className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center space-x-1.5"
+            className="px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center space-x-1.5 shadow-md shadow-blue-600/20 active:scale-95 transition"
+            title="Print or Save Invoice to PDF"
           >
             <Printer className="w-3.5 h-3.5" />
-            <span>Print / Save PDF</span>
+            <span>Print Invoice</span>
           </button>
 
           {invoice.status !== 'Paid' && (
@@ -111,19 +119,29 @@ export const InvoicePreviewModal: React.FC = () => {
       </div>
 
       {/* Invoice Paper Card (designed for pristine on-screen preview & pixel-perfect print) */}
-      <div className="print-container bg-white text-slate-900 rounded-2xl p-6 sm:p-10 shadow-2xl border border-slate-200/80">
+      <div
+        className="print-container invoice-paper bg-white text-slate-900 rounded-2xl p-6 sm:p-10 shadow-2xl border border-slate-200/80"
+        style={{ backgroundColor: '#ffffff', color: '#0f172a' }}
+      >
         {/* Invoice Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start gap-6 pb-6 border-b border-slate-200">
           <div>
-            <div className="flex items-center space-x-2">
-              <span className="font-extrabold text-2xl text-slate-950 tracking-tight">
-                {businessProfile.name}
-              </span>
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-300">
-                Tax Invoice
-              </span>
+            <div className="flex items-center space-x-3 mb-2">
+              <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-lg shadow-sm border border-slate-700">
+                <span className="text-lime-400">₹</span>
+              </div>
+              <div>
+                <div className="flex items-center space-x-2">
+                  <span className="font-extrabold text-2xl text-slate-950 tracking-tight">
+                    {businessProfile.name}
+                  </span>
+                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-300">
+                    Tax Invoice
+                  </span>
+                </div>
+                <p className="text-xs text-slate-600">{businessProfile.ownerName}</p>
+              </div>
             </div>
-            <p className="text-xs text-slate-600 mt-1">{businessProfile.ownerName}</p>
             <p className="text-xs text-slate-600">
               {businessProfile.address}, {businessProfile.city}, {businessProfile.state} - {businessProfile.pincode}
             </p>
